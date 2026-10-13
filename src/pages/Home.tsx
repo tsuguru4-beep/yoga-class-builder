@@ -4,6 +4,7 @@ import { totalSec } from '../allocation';
 import { LEVEL_LABEL, PURPOSES, STYLE_LABEL } from '../constants';
 import { deleteClass, listClasses, putClass } from '../db';
 import { duplicatePlan } from '../plan';
+import { loadSettings } from '../settings';
 import type { ClassPlan } from '../types';
 import { fmtDate, fmtMin } from '../util';
 
@@ -13,6 +14,7 @@ export default function Home() {
   const [q, setQ] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [menuId, setMenuId] = useState<string | null>(null);
+  const hasKey = loadSettings().apiKey !== '';
 
   const reload = () => listClasses().then(setClasses);
   useEffect(() => {
@@ -61,6 +63,12 @@ export default function Home() {
         </Link>
       </header>
 
+      {!hasKey && (
+        <Link to="/settings" className="card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', marginBottom: 12, borderLeft: '5px solid var(--warn)' }}>
+          <div className="bold">AIを使うにはAPIキーの設定が必要です ›</div>
+          <div className="muted small">この端末ではまだ設定されていません。⚙ 設定から入力してください。</div>
+        </Link>
+      )}
       <input
         className="input"
         type="search"

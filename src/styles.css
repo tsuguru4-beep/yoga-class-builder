@@ -76,7 +76,7 @@ h1, h2, h3 { line-height: 1.35; margin: 0; }
   color: var(--text);
 }
 .icon-btn:active { background: var(--sage-soft); }
-a.icon-btn { text-decoration: none; }
+a.icon-btn, a.btn { text-decoration: none; }
 
 /* ---------- ボタン ---------- */
 .btn {
